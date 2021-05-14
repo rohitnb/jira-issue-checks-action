@@ -20,7 +20,7 @@ Binary flag - Assigned/True; Unassigned/False
 
 ## Example usage
 ```
-uses: rohitnb/jira-assign-action@v1
+uses: preacherlemon/jira-assign-action@v1
 with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
