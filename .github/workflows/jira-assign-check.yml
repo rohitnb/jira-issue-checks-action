@@ -10,9 +10,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: npm install
-        run: 
-          npm install
       - name: Check if JIRA Issue is assigned
         id: jira-assign
         uses: ./
