@@ -22,4 +22,4 @@ jobs:
           jira-token: ${{secrets.JIRA_TOKEN}}
       # Use the output from the `hello` step
       - name: JIRA Assign Check Results
-        run: echo "The time was ${{ steps.jira-assign.outputs.jira-assigned }}"
+        run: echo "JIRA Assign Results - ${{ steps.jira-assign.outputs.jira-assigned }}"
