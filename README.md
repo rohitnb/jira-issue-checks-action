@@ -20,7 +20,7 @@ Binary flag - Assigned/True; Unassigned/False
 
 ### Example usage
 ```
-uses: preacherlemon/jira-assign-action@v1
+uses: preacherlemon/jira-assign-check-action@v1
 with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check if JIRA Issue is assigned
         id: jira-assign
-        uses: preacherlemon/jira-assign-action@v1
+        uses: preacherlemon/jira-assign-check-action@v1
         with:
           jira-issue: 'INTEG-2'
           jira-token: ${{secrets.JIRA_TOKEN}}
