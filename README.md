@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check if JIRA Issue is assigned
         id: jira-assign
-        uses: ./
+        uses: preacherlemon/jira-assign-action@v1
         with:
           jira-issue: 'INTEG-2'
           jira-token: ${{secrets.JIRA_TOKEN}}
