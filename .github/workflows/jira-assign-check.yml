@@ -1,5 +1,8 @@
 name: 'JIRA Check - Assign'
-on: [push]
+on: 
+  push:
+  pull_request:
+    types: [opened,edited]
 
 jobs:
   jira-assign-check:

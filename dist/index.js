@@ -8726,6 +8726,7 @@ async function run(){
             }
         }
         catch(err){
+            core.setFailed("JIRA is unassigned!");
             core.setOutput("jira-assigned",false);
         }
     }
