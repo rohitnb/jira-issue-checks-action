@@ -1,0 +1,22 @@
+name: 'JIRA Check - Assign'
+on: [push]
+
+jobs:
+  jira-assign-check:
+    runs-on: ubuntu-latest
+    name: Check if JIRA Issue is assigned
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: npm install
+        run: 
+          npm install
+      - name: Check if JIRA Issue is assigned
+        id: jira-assign
+        uses: ./
+        with:
+          jira-issue: 'INTEG-2'
+          jira-token: ${{secrets.JIRA_TOKEN}}
+      # Use the output from the `hello` step
+      - name: JIRA Assign Check Results
+        run: echo "The time was ${{ steps.jira-assign.outputs.jira-assigned }}"
