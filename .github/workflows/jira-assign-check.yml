@@ -1,6 +1,5 @@
 name: 'JIRA Check - Assign'
 on: 
-  push:
   pull_request:
     types: [opened,edited]
 
