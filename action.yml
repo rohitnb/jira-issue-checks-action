@@ -1,0 +1,18 @@
+name: 'JIRA Check: Assignee'
+description: 'Check if the JIRA ticket is assigned or not'
+inputs:
+    jira-issue:
+        description: 'JIRA issue number'
+        required: true
+        default: 'null'
+    jira-token:
+        description: 'JIRA Token'
+        required: true
+        default: 'null'
+outputs:
+    jira-assigned:
+        description: 'Flag - Is the JIRA issue assigned'
+
+runs:
+    using: 'node12'
+    main: 'dist/index.js'
