@@ -14,7 +14,7 @@ This action checks if the JIRA Issue is assigned or not
 
 #### `ghtoken`
 
-**Required** The GitHub token Default `${{secrets.GITHUB_TOKEN}}`
+**Required** The GitHub token Default `null`
 
 ### Outputs
 `jira-assigned` - Issue Assigned?	
@@ -30,7 +30,7 @@ uses: preacherlemon/jira-assign-check-action@v1
 with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
-  ghtoken: ${{secerts.GITHUB_TOKEN}}
+  ghtoken: ${{secrets.GITHUB_TOKEN}}
 ```
 ### Demo workflow file for Pull Requests
 ```

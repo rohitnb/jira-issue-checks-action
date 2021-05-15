@@ -12,7 +12,7 @@ inputs:
     ghtoken:
         description: 'GitHub Token'
         required: true
-        default: ${{secrets.GITHUB_TOKEN}}
+        default: 'null'
 outputs:
     jira-assigned:
         description: 'Flag - Is the JIRA issue assigned'
