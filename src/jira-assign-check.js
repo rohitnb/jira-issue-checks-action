@@ -6,6 +6,7 @@ async function run(){
     const jiraIssue = core.getInput('jira-issue');
     const jiraToken = core.getInput('jira-token'); 
     const ghtoken = core.getInput('ghtoken');
+    const octokit = github.getOctokit(ghtoken);
     var reviewResult = 0;
     
     function getIssueDetails(callback){
@@ -119,17 +120,17 @@ async function run(){
             core.setOutput("result",false);
         }
 
-        const octokit = github.getOctokit(ghtoken);
-        console.log(github.context.payload);
-        const pull_request_number = github.context.payload.pull_request.number;
-        console.log("PR is "+pull_request_number);
-        const new_comment = octokit.issues.createComment({
-            ...context.repo,
-            issue_number: pull_request_number,
-            body: 'This is a message from the action'
-          });
     }
     );
+    console.log(github.context.payload);
+    const pull_request_number = github.context.payload.pull_request.number;
+    console.log("PR is "+pull_request_number);
+    const new_comment = await octokit.issues.createComment({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        issue_number: pull_request_number,
+        body: 'This is a message from the action'
+        });
 }
 
 run();
