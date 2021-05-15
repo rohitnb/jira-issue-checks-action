@@ -127,11 +127,11 @@ async function run(){
                 
                 if(reviewResult==5){
                     console.log("All Checks PASSED");
-                    finalMessage.push("\n JIRA Review Report: All Checks PASSED ✅");
+                    finalMessage.push("All Checks PASSED ✅");
                     core.setOutput("result",true);
                 }else{
                     console.log("Some Checks have FAILED.");
-                    finalMessage.push("\n JIRA Review Report: Some Checks FAILED ❌");
+                    finalMessage.push("Some Checks FAILED ❌");
                     core.setOutput("result",false);
                 }
         
@@ -147,13 +147,11 @@ async function run(){
                 var results_message = "\n\
 ### JIRA Checks: \n\
 | Check Name | Result | \n\
-"+resultMessages.join()+"\n\
+|-|-| \n\
+"+resultMessages.join("")+"\n\
 "
         
-                var results_report = "\n\
-### JIRA Review Results \n\
-"+finalMessage+"\n\
-"
+                var results_report = "### JIRA Review Results: "+finalMessage+"\n";
         
                 var message = details_message + results_message + results_report;
         
