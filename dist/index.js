@@ -8749,14 +8749,14 @@ async function run(){
         try{
             if(issueDetails.fields.assignee.accountId!=null){
                 console.log("JIRA Review - Assignment Check PASSED");
-                resultMessages.push("\n JIRA Review - Assignment Check PASSED ✅");
+                resultMessages.push("\n JIRA Review - `Assignment` Check PASSED ✅");
                 reviewResult = reviewResult+1;
                 core.setOutput("jira-assigned",true);
             }
         }
         catch(err){
             console.log("JIRA Review - Assignment Check FAILED");
-            resultMessages.push("\n JIRA Review - Assignment Check FAILED ❌");
+            resultMessages.push("\n JIRA Review - `Assignment` Check FAILED ❌");
             core.setOutput("jira-assigned",false);
         }
 
@@ -8772,12 +8772,12 @@ async function run(){
             }
             if(issueDetails.fields[sprintFieldId]!=null){
                 console.log("JIRA Review - Sprint Check PASSED");
-                resultMessages.push("\n JIRA Review - Sprint Check PASSED ✅");
+                resultMessages.push("\n JIRA Review - `Sprint` Check PASSED ✅");
                 reviewResult = reviewResult+1;
                 core.setOutput("jira-sprint",true);
             }else{
                 console.log("JIRA Review - Sprint Check FAILED");
-                resultMessages.push("\n JIRA Review - Sprint Check FAILED ❌");
+                resultMessages.push("\n JIRA Review - `Sprint` Check FAILED ❌");
                 core.setOutput("jira-sprint",false);
             }
         });
@@ -8785,36 +8785,36 @@ async function run(){
         //This block checks for whether fix version is present
         if(issueDetails.fields.fixVersions.length!=0){
             console.log("JIRA Review - Fix version Check PASSED");
-            resultMessages.push("\n JIRA Review - Fix version Check PASSED ✅");
+            resultMessages.push("\n JIRA Review - `Fix version` Check PASSED ✅");
             reviewResult = reviewResult+1;
             core.setOutput("jira-fixversion",true);
         }else{
             console.log("JIRA Review - Fix version Check FAILED");
-            resultMessages.push("\n JIRA Review - Fix version Check FAILED ❌");
+            resultMessages.push("\n JIRA Review - `Fix version` Check FAILED ❌");
             core.setOutput("jira-fixversion",false);
         }
 
         //This block checks for whether time is logged
         if(issueDetails.fields.timespent!=null){
             console.log("JIRA Review - Time Logging Check PASSED");
-            resultMessages.push("\n JIRA Review - Time logging Check PASSED ✅");
+            resultMessages.push("\n JIRA Review - `Time logging` Check PASSED ✅");
             reviewResult = reviewResult+1;
             core.setOutput("jira-timelogging",true);
         }else{
             console.log("JIRA Review - Time Logging Check FAILED");
-            resultMessages.push("\n JIRA Review - Time Logging Check FAILED ❌");
+            resultMessages.push("\n JIRA Review - `Time Logging` Check FAILED ❌");
             core.setOutput("jira-timelogging",false);
         }
 
         //This block checks for status
         if(issueDetails.fields.status.name=="In Progress"){
             console.log("JIRA Review - Issue Status is In Progress");
-            resultMessages.push("\n JIRA Review - Issue Status Check PASSED ✅");
+            resultMessages.push("\n JIRA Review - `Issue Status` Check PASSED ✅");
             reviewResult = reviewResult+1;
             core.setOutput("jira-status",true);
         }else{
             console.log("JIRA Review - Issue Status is "+issueDetails.fields.status.name+". It must be In Progress when the PR is open.");
-            resultMessages.push("\n JIRA Review - Issue Status Check FAILED ❌");
+            resultMessages.push("\n JIRA Review - `Issue Status` Check FAILED ❌");
             core.setOutput("jira-status",false);
         }
         
@@ -8831,10 +8831,11 @@ async function run(){
         const pull_request_number = github.context.payload.pull_request.number;
         var details_message = "\n\
 ### JIRA Details: \n\n\
-JIRA Issue Number: "+issueDetails.key+" \n\
-JIRA Summary: "+issueDetails.fields.summary+" \n\
-JIRA Issue Type: "+issueDetails.fields.issuetype.name+" \n\
-JIRA Status: "+issueDetails.fields.status.name+" \n\
+| JIRA Issue ID |["+issueDetails.key+"]("+issueDetails.self+")| \n\
+|-|-| \n\
+| JIRA Summary |"+issueDetails.fields.summary+"| \n\
+| JIRA Issue Type | "+issueDetails.fields.issuetype.name+"| \n\
+| JIRA Status |"+issueDetails.fields.status.name+"|\n\
 "
         var results_message = "\n\
 ### JIRA Review Checks \n\
