@@ -31,7 +31,7 @@ This action checks if the JIRA Issue is assigned or not
 
 ### Example usage
 ```
-uses: preacherlemon/jira-issue-checks-action@v1
+uses: rohitnb/jira-issue-checks-action@v1
 with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check if JIRA Issues meet policies
         id: jira-checks
-        uses: preacherlemon/jira-issue-checks-action@v2
+        uses: rohitnb/jira-issue-checks-action@v2
         with:
           jira-issue: 'INTEG-2'
           jira-token: ${{secrets.JIRA_TOKEN}}
