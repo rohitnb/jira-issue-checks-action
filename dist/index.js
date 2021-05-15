@@ -8841,7 +8841,7 @@ async function run(){
                 var results_message = "\n\
 ### JIRA Checks: \n\
 | Check Name | Result | \n\
-|-|-| \n\
+|-|-| \
 "+resultMessages.join("")+"\n\
 "
         
