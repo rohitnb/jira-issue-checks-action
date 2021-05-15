@@ -8782,6 +8782,7 @@ async function run(){
             }
         });
 
+        //wait for the above block to finish (2sec) and continue with the remaining checks
         setTimeout(()=>
         {
                 if(issueDetails.fields.fixVersions.length!=0){
@@ -8831,21 +8832,21 @@ async function run(){
         
                 const pull_request_number = github.context.payload.pull_request.number;
                 var details_message = "\n\
-### JIRA Details: \n\n\
-| JIRA Issue ID |["+issueDetails.key+"]("+issueDetails.self+")| \n\
+### JIRA Issue Details: \n\n\
+| JIRA Issue ID | "+issueDetails.key+" | \n\
 |-|-| \n\
 | JIRA Summary |"+issueDetails.fields.summary+"| \n\
 | JIRA Issue Type | "+issueDetails.fields.issuetype.name+"| \n\
 | JIRA Status |"+issueDetails.fields.status.name+"|\n\
         "
                 var results_message = "\n\
-### JIRA Checks: \n\
+### JIRA Issue Checks: \n\
 | Check Name | Result | \n\
 |-|-| \
 "+resultMessages.join("")+"\n\
 "
         
-                var results_report = "### JIRA Review Results: "+finalMessage+"\n";
+                var results_report = "### Results: "+finalMessage+"\n";
         
                 var message = details_message + results_message + results_report;
         
