@@ -1,4 +1,4 @@
-## JIRA Issues Checks
+## JIRA Issue Checks
 
 This action checks if the JIRA Issue is assigned or not
 
@@ -31,7 +31,7 @@ This action checks if the JIRA Issue is assigned or not
 
 ### Example usage
 ```
-uses: preacherlemon/jira-assign-check-action@v1
+uses: preacherlemon/jira-issue-checks-action@v1
 with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
@@ -52,12 +52,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Check if JIRA Issues meet policies
-        id: jira-assign
-        uses: preacherlemon/jira-assign-check-action@v1
+        id: jira-checks
+        uses: preacherlemon/jira-issue-checks-action@v2
         with:
           jira-issue: 'INTEG-2'
           jira-token: ${{secrets.JIRA_TOKEN}}
           ghtoken: ${{secrets.GITHUB_TOKEN}}
       - name: JIRA Issue Checks Results
-        run: echo "JIRA Issue Checks Results - ${{ steps.jira-assign.outputs.result }}"
+        run: echo "JIRA Issue Checks Results - ${{ steps.jira-checks.outputs.result }}"
 ```
