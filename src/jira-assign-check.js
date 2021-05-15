@@ -120,27 +120,23 @@ async function run(){
             core.setOutput("result",false);
         }
 
-        console.log(github.context.payload);
         const pull_request_number = github.context.payload.pull_request.number;
-        console.log("PR is "+pull_request_number);
+        var message = "\
+        ### JIRA Review:\
+        JIRA Issue Number: "+issueDetails.key+"\
+        JIRA Summary: "+issueDetails.fields.summary+"\
+        JIRA Issue Type: "+issueDetails.fields.issuetype.name+"\
+        JIRA Status: "+issueDetails.fields.status.name+"\
+        "
         const new_comment = octokit.rest.issues.createComment({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
             issue_number: pull_request_number,
-            body: 'This is a message from the action'
+            body: message
             });
 
     }
     );
-    // console.log(github.context.payload);
-    // const pull_request_number = github.context.payload.pull_request.number;
-    // console.log("PR is "+pull_request_number);
-    // const new_comment = await octokit.rest.issues.createComment({
-    //     owner: github.context.repo.owner,
-    //     repo: github.context.repo.repo,
-    //     issue_number: pull_request_number,
-    //     body: 'This is a message from the action'
-    //     });
 }
 
 run();
