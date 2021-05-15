@@ -9,6 +9,10 @@ inputs:
         description: 'JIRA Token'
         required: true
         default: 'null'
+    ghtoken:
+        description: 'GitHub Token'
+        required: true
+        default: 'null'
 outputs:
     jira-assigned:
         description: 'Flag - Is the JIRA issue assigned'

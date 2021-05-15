@@ -5,6 +5,8 @@ const axios = require('axios');
 async function run(){
     const jiraIssue = core.getInput('jira-issue');
     const jiraToken = core.getInput('jira-token'); 
+    const ghtoken = core.getInput('ghtoken');
+    const octokit = github.getOctokit(ghtoken);
     var reviewResult = 0;
     
     function getIssueDetails(callback){
@@ -117,6 +119,14 @@ async function run(){
             console.log("Some Checks have FAILED.");
             core.setOutput("result",false);
         }
+
+        const context = github.context;
+        const pull_request_number = context.payload.pull_request.number;
+        const new_comment = octokit.issues.createComment({
+            ...context.repo,
+            issue_number: pull_request_number,
+            body: 'This is a message from the action'
+          });
     }
     );
 }
