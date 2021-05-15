@@ -1,5 +1,5 @@
-name: 'JIRA Check: Assignee'
-description: 'Check if the JIRA ticket is assigned or not'
+name: 'JIRA Review'
+description: 'Perform a few checks on the JIRA issue provided'
 inputs:
     jira-issue:
         description: 'JIRA issue number'
@@ -9,9 +9,23 @@ inputs:
         description: 'JIRA Token'
         required: true
         default: 'null'
+    ghtoken:
+        description: 'GitHub Token'
+        required: true
+        default: 'null'
 outputs:
     jira-assigned:
         description: 'Flag - Is the JIRA issue assigned'
+    jira-sprint:
+        description: 'Flag - Is the JIRA sprint entered'
+    jira-fixversion:
+        description: 'Flag - Is the JIRA fix version entered'
+    jira-timelogging:
+        description: 'Flag - Has the time been logged in the JIRA'
+    jira-status:
+        description: 'Flag - Is the Status of the issue In Progress'
+    result:
+        description: 'Flag - Final Result'
 
 runs:
     using: 'node12'
