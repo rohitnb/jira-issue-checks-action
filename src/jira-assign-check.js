@@ -139,7 +139,7 @@ async function run(){
                 const pull_request_number = github.context.payload.pull_request.number;
                 var details_message = "\n\
 ### JIRA Issue Details: \n\n\
-| JIRA Issue ID | "+issueDetails.key+" | \n\
+| JIRA Issue ID | ["+issueDetails.key+"] | \n\
 |-|-| \n\
 | JIRA Summary |"+issueDetails.fields.summary+"| \n\
 | JIRA Issue Type | "+issueDetails.fields.issuetype.name+"| \n\
