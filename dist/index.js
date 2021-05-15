@@ -8815,13 +8815,14 @@ async function run(){
         }
 
         const pull_request_number = github.context.payload.pull_request.number;
-        var message = "\
-        ### JIRA Review:\
-        JIRA Issue Number: "+issueDetails.key+"\
-        JIRA Summary: "+issueDetails.fields.summary+"\
-        JIRA Issue Type: "+issueDetails.fields.issuetype.name+"\
-        JIRA Status: "+issueDetails.fields.status.name+"\
+        var message = "\n\
+        ### JIRA Details: \n\
+        JIRA Issue Number: "+issueDetails.key+" \n\
+        JIRA Summary: "+issueDetails.fields.summary+" \n\
+        JIRA Issue Type: "+issueDetails.fields.issuetype.name+" \n\
+        JIRA Status: "+issueDetails.fields.status.name+" \n\
         "
+
         const new_comment = octokit.rest.issues.createComment({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
