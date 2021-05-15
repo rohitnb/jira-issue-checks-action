@@ -110,7 +110,7 @@ async function run(){
             core.setOutput("jira-status",false);
         }
         
-        if(reviewResult==4){
+        if(reviewResult==5){
             console.log("All Checks PASSED");
             core.setOutput("result",true);
         }else{
