@@ -118,10 +118,10 @@ async function run(){
             console.log("Some Checks have FAILED.");
             core.setOutput("result",false);
         }
-        
+
         const octokit = github.getOctokit(ghtoken);
-        const context = github.context;
-        const pull_request_number = context.payload.pull_request.number;
+        console.log(github.context.payload);
+        const pull_request_number = github.context.payload.pull_request.number;
         console.log("PR is "+pull_request_number);
         const new_comment = octokit.issues.createComment({
             ...context.repo,
