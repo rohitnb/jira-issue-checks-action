@@ -1,4 +1,4 @@
-## JIRA Check - Assign
+## JIRA Issues Checks
 
 This action checks if the JIRA Issue is assigned or not
 
@@ -18,10 +18,15 @@ This action checks if the JIRA Issue is assigned or not
 
 ### Outputs
 `jira-assigned` - Issue Assigned?	
+
 `jira-sprint` - Sprint value updated?	
+
 `jira-fixversion` - Fix version updated?	
+
 `jira-timelogging` - Time Logged?
+
 `jira-status` - Issue Status is In Progress?
+
 `result` - True if all checks passed.
 
 ### Example usage
