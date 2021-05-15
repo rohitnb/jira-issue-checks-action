@@ -1,6 +1,17 @@
-## JIRA Issue Checks
+## JIRA Issue Checks Action
 
-This action checks if the JIRA Issue is assigned or not
+### What does it do?
+
+This action performs the following checks for the JIRA Issue provided in the input
+
+Checks Performed:
+
+- Is the JIRA Issue assigned?
+- Is the JIRA Issue in the "In Progress" state?
+- Is the Sprint value updated?
+- Is the Fix Version updated?
+- Is the time logged?
+
 
 ### Inputs
 
@@ -37,6 +48,7 @@ with:
   jira-token: ${{secrets.JIRA_TOKEN}}
   ghtoken: ${{secrets.GITHUB_TOKEN}}
 ```
+
 ### Demo workflow file for Pull Requests
 ```
 name: 'JIRA Issue Checks'
