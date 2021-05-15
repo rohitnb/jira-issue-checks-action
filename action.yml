@@ -18,6 +18,8 @@ outputs:
         description: 'Flag - Is the JIRA fix version entered'
     jira-timelogging:
         description: 'Flag - Has the time been logged in the JIRA'
+    jira-status:
+        description: 'Flag - Is the Status of the issue In Progress'
     result:
         description: 'Flag - Final Result'
 

@@ -99,6 +99,16 @@ async function run(){
             console.log("JIRA Review - Time Logging Check FAILED");
             core.setOutput("jira-timelogging",false);
         }
+
+        //This block checks for status
+        if(issueDetails.fields.status.name=="In Progress"){
+            console.log("JIRA Review - Issue Status is In Progress");
+            reviewResult = reviewResult+1;
+            core.setOutput("jira-status",true);
+        }else{
+            console.log("JIRA Review - Issue Status is "+issueDetails.fields.status.name+". It must be In Progress when the PR is open.");
+            core.setOutput("jira-status",false);
+        }
         
         if(reviewResult==4){
             console.log("All Checks PASSED");
