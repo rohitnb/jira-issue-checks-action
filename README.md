@@ -27,6 +27,10 @@ Checks Performed:
 
 **Required** The GitHub token Default `null`
 
+#### `jira-domain`
+
+**Required** The JIRA domain. Example: `https://<company>.atlassian.net`
+
 ### Outputs
 `jira-assigned` - Issue Assigned?	
 
