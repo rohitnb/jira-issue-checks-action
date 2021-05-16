@@ -13,6 +13,10 @@ inputs:
         description: 'GitHub Token'
         required: true
         default: 'null'
+    jira-domain:
+        description: 'Domain of the JIRA'
+        required: true
+        default: 'null'
 outputs:
     jira-assigned:
         description: 'Flag - Is the JIRA issue assigned'
