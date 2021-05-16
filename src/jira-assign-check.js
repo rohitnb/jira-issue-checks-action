@@ -6,6 +6,7 @@ async function run(){
     const jiraIssue = core.getInput('jira-issue');
     const jiraToken = core.getInput('jira-token'); 
     const ghtoken = core.getInput('ghtoken');
+    const jiraDomain = core.getInput('jira-domain');
     const octokit = github.getOctokit(ghtoken);
     var reviewResult = 0;
     var resultMessages = [];
@@ -14,7 +15,7 @@ async function run(){
     function getIssueDetails(callback){
         var config = {
         method: 'get',
-        url: 'https://rohitnb.atlassian.net/rest/api/3/issue/'+jiraIssue,
+        url: jiraDomain+'/rest/api/3/issue/'+jiraIssue,
         headers: { 
             'Content-Type': 'application/json', 
             'Authorization': 'Basic '+jiraToken, 
@@ -33,7 +34,7 @@ async function run(){
     function getSprintId(callback){
         var config = {
             method: 'get',
-            url: 'https://rohitnb.atlassian.net/rest/api/3/field',
+            url: jiraDomain+'/rest/api/3/field',
             headers: { 
                 'Content-Type': 'application/json', 
                 'Authorization': 'Basic '+jiraToken,
@@ -70,20 +71,23 @@ async function run(){
         getSprintId(function(res2){
             var fieldsData = res2;
             var sprintFieldId = "";
+            var epicLinkFieldId = ""
             for(i=0;i<fieldsData.length;i++){
                 if(fieldsData[i].name==="Sprint"){
                     sprintFieldId=fieldsData[i].id;
-                    break;
+                }
+                if(fieldsData[i].name==="Epic Link"){
+                    epicLinkFieldId=fieldsData[i].id;
                 }
             }
-            if(issueDetails.fields[sprintFieldId]!=null){
-                console.log("Sprint Check PASSED");
-                resultMessages.push("\n | Sprint value updated? | ✅ |");
+            if(issueDetails.fields[sprintFieldId]!=null || issueDetails.fields[epicLinkFieldId]!=null){
+                console.log("Sprint/Epic Check PASSED");
+                resultMessages.push("\n | Sprint/Epic value updated? | ✅ |");
                 reviewResult = reviewResult+1;
                 core.setOutput("jira-sprint",true);
             }else{
-                console.log("Sprint Check FAILED");
-                resultMessages.push("\n | Sprint value updated? | ❌ |");
+                console.log("Sprint/Epic Check FAILED");
+                resultMessages.push("\n | Sprint/Epic value updated? | ❌ |");
                 core.setOutput("jira-sprint",false);
             }
         });
@@ -126,19 +130,55 @@ async function run(){
                     core.setOutput("jira-status",false);
                 }
                 
+                const pull_request_number = github.context.payload.pull_request.number;
+                const pull_request_labels = github.context.payload.pull_request.labels;
+                var label = ""
+                console.log("Type of labels is "+typeof(pull_request_labels)+" and contents is "+pull_request_labels);
+                
+                
                 if(reviewResult==5){
                     console.log("All Checks PASSED");
                     finalMessage.push("All Checks PASSED ✅");
+                    var applied_label = octokit.rest.issues.addLabels({
+                        owner: github.context.repo.owner,
+                        repo: github.context.repo.repo,
+                        issue_number: pull_request_number,
+                        labels: ["jira-check:passed",issueDetails.project.key, issueDetails.fields.issuetype.name]
+                      })
+                    for(i=0;i<pull_request_labels.length;i++){
+                        if(pull_request_labels[i].name == "jira-checks:failed"){
+                            octokit.rest.issues.removeLabel({
+                                owner: github.context.repo.owner,
+                                repo: github.context.repo.repo,
+                                issue_number: pull_request_number,
+                                name: "jira-checks:failed"
+                              });
+                        }
+                    }
                     core.setOutput("result",true);
                 }else{
                     console.log("Some Checks have FAILED.");
                     finalMessage.push("Some Checks FAILED ❌");
+                    var applied_label = octokit.rest.issues.addLabels({
+                        owner: github.context.repo.owner,
+                        repo: github.context.repo.repo,
+                        issue_number: pull_request_number,
+                        labels: ["jira-check:failed",issueDetails.project.key, issueDetails.fields.issuetype.name]
+                      })
+                    for(i=0;i<pull_request_labels.length;i++){
+                        if(pull_request_labels[i].name == "jira-checks:passed"){
+                            octokit.rest.issues.removeLabel({
+                                owner: github.context.repo.owner,
+                                repo: github.context.repo.repo,
+                                issue_number: pull_request_number,
+                                name: "jira-checks:passed",
+                                });
+                        }
+                    }
                     core.setOutput("result",false);
                 }
         
-                const pull_request_number = github.context.payload.pull_request.number;
-                const pull_request_labels = github.context.payload.pull_request.labels;
-                console.log("Type of labels is "+typeof(pull_request_labels)+" and contents is "+pull_request_labels);
+                
                 var details_message = "\n\
 ### JIRA Issue Details: \n\n\
 | JIRA Issue ID | ["+issueDetails.key+"] | \n\
