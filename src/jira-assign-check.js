@@ -137,6 +137,8 @@ async function run(){
                 }
         
                 const pull_request_number = github.context.payload.pull_request.number;
+                const pull_request_labels = github.context.payload.pull_request.labels;
+                console.log("Type of labels is "+typeof(pull_request_labels)+" and contents is "+pull_request_labels);
                 var details_message = "\n\
 ### JIRA Issue Details: \n\n\
 | JIRA Issue ID | ["+issueDetails.key+"] | \n\
