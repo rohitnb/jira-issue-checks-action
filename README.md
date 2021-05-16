@@ -51,6 +51,7 @@ with:
   jira-issue: 'XYZ-123'
   jira-token: ${{secrets.JIRA_TOKEN}}
   ghtoken: ${{secrets.GITHUB_TOKEN}}
+  jira-domain: ${{secrets.JIRA_URL}}
 ```
 
 ### Demo workflow file for Pull Requests
@@ -74,6 +75,7 @@ jobs:
           jira-issue: 'INTEG-2'
           jira-token: ${{secrets.JIRA_TOKEN}}
           ghtoken: ${{secrets.GITHUB_TOKEN}}
+          jira-domain: ${{secrets.JIRA_URL}}
       - name: JIRA Issue Checks Results
         run: echo "JIRA Issue Checks Results - ${{ steps.jira-checks.outputs.result }}"
 ```
