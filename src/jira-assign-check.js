@@ -143,7 +143,7 @@ async function run(){
                         owner: github.context.repo.owner,
                         repo: github.context.repo.repo,
                         issue_number: pull_request_number,
-                        labels: ["jira-check:passed",issueDetails.fields.project.key, issueDetails.fields.issuetype.name]
+                        labels: ["jira-checks:passed",issueDetails.fields.project.key, issueDetails.fields.issuetype.name]
                       })
                     for(i=0;i<pull_request_labels.length;i++){
                         if(pull_request_labels[i].name == "jira-checks:failed"){
@@ -163,7 +163,7 @@ async function run(){
                         owner: github.context.repo.owner,
                         repo: github.context.repo.repo,
                         issue_number: pull_request_number,
-                        labels: ["jira-check:failed",issueDetails.fields.project.key, issueDetails.fields.issuetype.name]
+                        labels: ["jira-checks:failed",issueDetails.fields.project.key, issueDetails.fields.issuetype.name]
                       })
                     for(i=0;i<pull_request_labels.length;i++){
                         if(pull_request_labels[i].name == "jira-checks:passed"){
