@@ -119,14 +119,14 @@ async function run(){
                 }
         
                 //This block checks for status
-                if(issueDetails.fields.status.name=="In Progress"){
-                    console.log("Issue Status is In Progress");
-                    resultMessages.push("\n | Issue Status is In Progress? | ✅ |");
+                if(issueDetails.fields.status.name=="In Progress"||issueDetails.fields.status.name=="In Review"){
+                    console.log("Issue Status OK");
+                    resultMessages.push("\n | Issue Status is In Progress or In Review State? | ✅ |");
                     reviewResult = reviewResult+1;
                     core.setOutput("jira-status",true);
                 }else{
-                    console.log("Issue Status is "+issueDetails.fields.status.name+". It must be In Progress when the PR is open.");
-                    resultMessages.push("\n | Issue Status is In Progress? | ❌ |");
+                    console.log("Issue Status is "+issueDetails.fields.status.name+". It must be In Progress or In Review when the PR is open.");
+                    resultMessages.push("\n | Issue Status is In Progress or In Review State? | ❌ |");
                     core.setOutput("jira-status",false);
                 }
                 
